@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/03 16:39:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/17 16:04:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <fcntl.h>
+
+int	check_input(char **argv);
 
 #endif

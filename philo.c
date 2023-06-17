@@ -6,35 +6,19 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/03 17:04:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/17 17:01:23 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *arg)
+int	main(int argc, char **argv)
 {
-	int	*nb;
-
-	nb = (int *)arg;
-	ft_printf("Philosopher %d from process: %d\n", *nb, getpid());
-	return (NULL);
-}
-
-int	main(void)
-{
-	pthread_t	philo[3];
-	int			i;
-	pid_t		pid;
-
-	pid = fork();
-	i = 0;
-	printf("%d\n", pid);
-	while (i < 2)
+	if (argc == 5)
 	{
-		pthread_create(&philo[i], NULL, routine, (void *)&i);
-		pthread_join(philo[i], NULL);
-		i++;
+		if (check_input(argv) == 0)
+			write(1, "Input Error\n", 12);
 	}
-	return (0);
+	else
+		write(1, "Wrong amount of arguments!\n", 27);
 }
