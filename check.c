@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:12:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/17 17:10:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/17 17:12:13 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	check_nbs(char *str)
 		if (str[i] < '0' || str[i] > '9')
 		{
 			if (i == 0 && str[i] == 43)
-			{}
+			{
+			}
 			else
 				return (0);
 		}
@@ -81,5 +82,4 @@ int	check_input(char **argv)
 		i++;
 	}
 	return (1);
-
 }
