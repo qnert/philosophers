@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/18 17:27:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:53:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_dinnertable	*dinnertable_init(char **argv)
 	table->nb_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_die = ft_atoi(argv[4]);
+	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5] != NULL)
 		table->nb_must_eat = ft_atoi(argv[5]);
 	else
