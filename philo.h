@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/17 17:11:51 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 16:19:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # include <stddef.h>
 # include <fcntl.h>
 
-int	check_input(char **argv);
+typedef struct Dinnertable
+{
+	int				tmp;
+	pthread_mutex_t	*forks;
+	pthread_t		philos[];
+}					t_dinnertable;
+
+int				check_input(char **argv);
+t_dinnertable	*dinnertable_init(char **argv);
 
 #endif
