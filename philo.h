@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/18 16:28:41 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 16:54:54 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef struct Dinnertable
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
-	pthread_t		philos[];
+	pthread_mutex_t	forks[200];
+	pthread_t		philos[200];
 }					t_dinnertable;
 
 int				check_input(char **argv);
