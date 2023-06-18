@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/18 16:54:54 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:24:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef struct Dinnertable
 {
+	int				nb_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;

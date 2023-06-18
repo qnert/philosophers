@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/18 16:55:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:27:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	*routine(void *arg)
 t_dinnertable	*dinnertable_init(char **argv)
 {
 	int				i;
-	int				tmp;
 	t_dinnertable	*table;
 
 	i = 1;
-	tmp = ft_atoi(argv[1]);
 	table = malloc(sizeof(t_dinnertable));
+	table->nb_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_die = ft_atoi(argv[4]);
@@ -60,7 +59,7 @@ t_dinnertable	*dinnertable_init(char **argv)
 		table->nb_must_eat = ft_atoi(argv[5]);
 	else
 		table->nb_must_eat = 0;
-	while (i < tmp + 1)
+	while (i < table->nb_of_philos + 1)
 	{
 		pthread_create(&table->philos[i - 1], NULL, &routine, (void *)&i);
 		pthread_mutex_init(&table->forks[i - 1], NULL);
