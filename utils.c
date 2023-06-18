@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/18 16:20:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/18 16:33:07 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ t_dinnertable	*dinnertable_init(char **argv)
 	i = 0;
 	tmp = ft_atoi(argv[1]);
 	table = malloc(sizeof(t_dinnertable));
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_die = ft_atoi(argv[4]);
+	if (argv[5] != NULL)
+		table->nb_must_eat = ft_atoi(argv[5]);
+	else
+		table->nb_must_eat = 0;
 	while (i < tmp)
 	{
 		pthread_create(&table->philos[i], NULL, &routine, (void *)&i);
