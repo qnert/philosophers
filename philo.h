@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 12:07:48 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:29:25 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct Dinnertable
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
+	pthread_mutex_t	printf_mutex;
 	pthread_mutex_t	forks[200];
 }					t_dinnertable;
 
@@ -37,7 +38,7 @@ typedef struct Philo
 	int				id;
 	int				time_since_eaten;
 	int				times_eaten;
-	pthread_t		*thread;
+	pthread_t		thread;
 	t_dinnertable	*dinnertable;
 }					t_philo;
 

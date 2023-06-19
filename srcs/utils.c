@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 12:08:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:31:00 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,49 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
+void	*routine(void *arg)
+{
+	t_philo		*philo;
+
+	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->dinnertable->forks[philo->id]);
+	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1) % philo->dinnertable->nb_of_philos]);
+	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
+	ft_printf("Philo %d is eating\n", philo->id);
+	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	usleep(philo->dinnertable->time_to_eat);
+	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
+	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id + 1) % philo->dinnertable->nb_of_philos]);
+	return (NULL);
+}
+
+void	thread_creation(t_philo **philosophers)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	tmp = philosophers[0]->dinnertable->nb_of_philos;
+	while (i < tmp)
+	{
+		pthread_mutex_init(&philosophers[i]->dinnertable->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&philosophers[0]->dinnertable->printf_mutex, NULL);
+	i = 0;
+	while (i < tmp)
+	{
+		pthread_create(&philosophers[i]->thread, NULL, &routine, (void *)philosophers[i]);
+		i++;
+	}
+	i = 0;
+	while (i < tmp)
+	{
+		pthread_join(philosophers[i]->thread, NULL);
+		i++;
+	}
+}
+
 void	philo_init(t_philo	**philosophers, char **argv)
 {
 	int				i;
@@ -54,6 +97,7 @@ void	philo_init(t_philo	**philosophers, char **argv)
 		philosophers[i]->dinnertable = table;
 		i++;
 	}
+	thread_creation(philosophers);
 }
 
 t_dinnertable	*dinnertable_init(char **argv)
