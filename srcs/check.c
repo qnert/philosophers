@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:12:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 12:07:28 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:10:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,5 @@ int	check_input(char **argv)
 			return (0);
 		i++;
 	}
-	if (ft_atoi(argv[1]) > 200)
-		return (0);
 	return (1);
 }
