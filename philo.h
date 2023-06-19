@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 13:29:25 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:43:04 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <fcntl.h>
+# include <sys/time.h>
 
 typedef struct Dinnertable
 {
-	int				tmp;
+	struct timeval	tz;
 	int				nb_of_philos;
 	int				time_to_die;
 	int				time_to_eat;

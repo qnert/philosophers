@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 13:31:00 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 13:45:14 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1) % philo->dinnertable->nb_of_philos]);
+	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1)
+		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	ft_printf("Philo %d is eating\n", philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	usleep(philo->dinnertable->time_to_eat);
 	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id + 1) % philo->dinnertable->nb_of_philos]);
+	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id + 1)
+		% philo->dinnertable->nb_of_philos]);
 	return (NULL);
 }
 
@@ -70,7 +72,8 @@ void	thread_creation(t_philo **philosophers)
 	i = 0;
 	while (i < tmp)
 	{
-		pthread_create(&philosophers[i]->thread, NULL, &routine, (void *)philosophers[i]);
+		pthread_create(&philosophers[i]->thread, NULL,
+			&routine, (void *)philosophers[i]);
 		i++;
 	}
 	i = 0;
