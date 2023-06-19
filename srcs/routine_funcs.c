@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 14:55:11 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:03:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	*routine(void *arg)
 	ft_printf("%d %d is sleeping\n",
 		get_time(philo->dinnertable->birth).tv_usec, philo->id);
 	usleep(philo->dinnertable->time_to_sleep);
+	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
+	ft_printf("%d %d is thinking\n",
+		get_time(philo->dinnertable->birth).tv_usec, philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 14:39:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:03:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (res * sign);
-}
-
-void	*routine(void *arg)
-{
-	t_philo		*philo;
-
-	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1)
-		% philo->dinnertable->nb_of_philos]);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("%d %d has taken a fork\n",
-		get_time(philo->dinnertable->birth).tv_usec, philo->id);
-	ft_printf("%d %d has taken a fork\n",
-		get_time(philo->dinnertable->birth).tv_usec, philo->id);
-	ft_printf("%d %d is eating\n",
-		get_time(philo->dinnertable->birth).tv_usec, philo->id);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
-	usleep(philo->dinnertable->time_to_eat);
-	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id + 1)
-		% philo->dinnertable->nb_of_philos]);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("%d %d is sleeping\n",
-		get_time(philo->dinnertable->birth).tv_usec, philo->id);
-	usleep(philo->dinnertable->time_to_sleep);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
-	return (NULL);
 }
 
 void	thread_creation(t_philo **philosophers)
