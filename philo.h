@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 07:07:24 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 07:19:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ typedef struct Dinnertable
 
 int				check_input(char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
+int				ft_atoi(const char *str);
 
 #endif

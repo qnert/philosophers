@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 07:08:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 07:45:25 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,41 @@ void	*routine(void *arg)
 	t_dinnertable	*table;
 
 	table = (t_dinnertable *)arg;
-	ft_printf("Hello from Philo %d\n", table->tmp + 1);
+	pthread_mutex_lock(&table->forks[table->tmp]);
+	pthread_mutex_lock(&table->forks[(table->tmp + 1) % table->nb_of_philos]);
+	ft_printf("Philosopher %d is eating\n", table->tmp + 1);
+	usleep(table->time_to_eat);
+	pthread_mutex_unlock(&table->forks[table->tmp]);
+	pthread_mutex_lock(&table->forks[(table->tmp + 1) % table->nb_of_philos]);
 	return (NULL);
+}
+
+void	philos_forks_init(t_dinnertable *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->nb_of_philos)
+	{
+		pthread_mutex_init(&table->forks[i], NULL);
+		pthread_create(&table->philos[i], NULL, &routine, (void *)table);
+		i++;
+	}
+	i = 0;
+	while (i < table->nb_of_philos)
+	{
+		pthread_join(table->philos[i], NULL);
+		i++;
+	}
 }
 
 t_dinnertable	*dinnertable_init(char **argv)
 {
-	int				i;
 	t_dinnertable	*table;
 
-	i = 0;
 	table = malloc(sizeof(t_dinnertable));
+	if (table == NULL)
+		return (NULL);
 	table->nb_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
@@ -62,13 +86,6 @@ t_dinnertable	*dinnertable_init(char **argv)
 		table->nb_must_eat = ft_atoi(argv[5]);
 	else
 		table->nb_must_eat = 0;
-	while (i < table->nb_of_philos)
-	{
-		table->tmp = i;
-		pthread_mutex_init(&table->forks[i], NULL);
-		pthread_create(&table->philos[i], NULL, &routine, (void *)table);
-		pthread_join(table->philos[i], NULL);
-		i++;
-	}
+	philos_forks_init(table);
 	return (table);
 }
