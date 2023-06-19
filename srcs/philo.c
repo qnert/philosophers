@@ -6,47 +6,46 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 08:47:56 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 12:08:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	free_all(t_dinnertable *table)
+void	free_all(t_philo **philosophers)
 {
 	int	i;
+	int	tmp;
 
 	i = 0;
-	while (i < table->nb_of_philos)
+	tmp = philosophers[0]->dinnertable->nb_of_philos;
+	free(philosophers[0]->dinnertable);
+	while (i < tmp)
 	{
-		pthread_mutex_destroy(&table->forks[i]);
+		free(philosophers[i]);
 		i++;
 	}
-	free(table);
 }
 
 int	main(int argc, char **argv)
 {
-	t_dinnertable	*table;
+	t_philo			*philosophers[201];
 
 	if (argc == 5)
 	{
 		if (check_input(argv) == 0)
 			return (write(1, "Input Error\n", 12), -1);
-		table = dinnertable_init(argv);
-		if (table == NULL)
-			return (-1);
-		free_all(table);
+		philo_init(philosophers, argv);
+		free_all(philosophers);
 	}
 	else if (argc == 6)
 	{
 		if (check_input(argv) == 0)
 			return (write(1, "Input Error\n", 12), -1);
-		table = dinnertable_init(argv);
-		if (table == NULL)
-			return (-1);
-		free_all(table);
+		philo_init(philosophers, argv);
+		free_all(philosophers);
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);
+	system("leaks philo");
 }

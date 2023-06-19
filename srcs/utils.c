@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 09:00:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 12:08:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,37 +38,20 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void	*routine(void *arg)
+void	philo_init(t_philo	**philosophers, char **argv)
 {
+	int				i;
 	t_dinnertable	*table;
 
-	table = (t_dinnertable *)arg;
-	pthread_mutex_lock(&table->forks[0]);
-	ft_printf("Philosopher %d is eating\n", 21);
-	pthread_mutex_unlock(&table->forks[0]);
-	return (NULL);
-}
-
-void	philos_forks_init(t_dinnertable *table)
-{
-	int	i;
-
 	i = 0;
+	table = dinnertable_init(argv);
 	while (i < table->nb_of_philos)
 	{
-		pthread_mutex_init(&table->forks[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < table->nb_of_philos)
-	{
-		pthread_create(&table->philos[i], NULL, &routine, (void *)table);
-		i++;
-	}
-	i = 0;
-	while (i < table->nb_of_philos)
-	{
-		pthread_join(table->philos[i], NULL);
+		philosophers[i] = ft_calloc(1, sizeof(t_philo));
+		philosophers[i]->id = i + 1;
+		philosophers[i]->time_since_eaten = 0;
+		philosophers[i]->times_eaten = 0;
+		philosophers[i]->dinnertable = table;
 		i++;
 	}
 }
@@ -77,7 +60,7 @@ t_dinnertable	*dinnertable_init(char **argv)
 {
 	t_dinnertable	*table;
 
-	table = malloc(sizeof(t_dinnertable));
+	table = ft_calloc(1, sizeof(t_dinnertable));
 	if (table == NULL)
 		return (NULL);
 	table->nb_of_philos = ft_atoi(argv[1]);
@@ -88,6 +71,5 @@ t_dinnertable	*dinnertable_init(char **argv)
 		table->nb_must_eat = ft_atoi(argv[5]);
 	else
 		table->nb_must_eat = 0;
-	philos_forks_init(table);
 	return (table);
 }
