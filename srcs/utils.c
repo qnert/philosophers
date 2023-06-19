@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 13:49:19 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 14:10:32 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*routine(void *arg)
 	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1)
 		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("Philo %d is eating\n", philo->id);
+	ft_printf("%d %d is eating\n", get_time(philo->dinnertable->birth).tv_usec, philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	usleep(philo->dinnertable->time_to_eat);
 	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
@@ -110,7 +110,7 @@ t_dinnertable	*dinnertable_init(char **argv)
 	table = ft_calloc(1, sizeof(t_dinnertable));
 	if (table == NULL)
 		return (NULL);
-	gettimeofday(&table->tz, NULL);
+	gettimeofday(&table->birth, NULL);
 	table->nb_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);

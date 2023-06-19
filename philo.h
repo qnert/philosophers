@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 13:43:04 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 14:07:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct Dinnertable
 {
-	struct timeval	tz;
+	struct timeval	birth;
 	int				nb_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
@@ -49,5 +49,6 @@ int				check_input(char **argv);
 void			philo_init(t_philo	**philosophers, char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
 int				ft_atoi(const char *str);
+struct timeval	get_time(struct timeval birth);
 
 #endif
