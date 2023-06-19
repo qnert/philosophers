@@ -6,11 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 07:28:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 08:47:56 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void	free_all(t_dinnertable *table)
 {

@@ -6,11 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:12:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 07:23:03 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 08:47:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	check_nbs(char *str)
 {
