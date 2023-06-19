@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:04:00 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 08:48:36 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/19 09:00:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	*routine(void *arg)
 	t_dinnertable	*table;
 
 	table = (t_dinnertable *)arg;
-	ft_printf("Philosopher %d is eating\n", table->tmp + 1);
-	sleep(2);
+	pthread_mutex_lock(&table->forks[0]);
+	ft_printf("Philosopher %d is eating\n", 21);
+	pthread_mutex_unlock(&table->forks[0]);
 	return (NULL);
 }
 
@@ -61,8 +62,12 @@ void	philos_forks_init(t_dinnertable *table)
 	i = 0;
 	while (i < table->nb_of_philos)
 	{
-		table->tmp = i;
 		pthread_create(&table->philos[i], NULL, &routine, (void *)table);
+		i++;
+	}
+	i = 0;
+	while (i < table->nb_of_philos)
+	{
 		pthread_join(table->philos[i], NULL);
 		i++;
 	}
