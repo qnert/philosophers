@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 10:39:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 17:20:00 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	first_routine(t_philo *philo)
 		get_time(philo->dinnertable->birth), philo->id);
 	ft_printf("%d %d is eating\n",
 		get_time(philo->dinnertable->birth), philo->id);
+	philo->times_eaten += 1;
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	usleep(philo->dinnertable->time_to_eat);
 	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
@@ -40,8 +41,8 @@ void	*routine(void *arg)
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	ft_printf("%d %d is sleeping\n",
 		get_time(philo->dinnertable->birth), philo->id);
-	usleep(philo->dinnertable->time_to_sleep);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	usleep(philo->dinnertable->time_to_sleep);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	ft_printf("%d %d is thinking\n",
 		get_time(philo->dinnertable->birth), philo->id);
