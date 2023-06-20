@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 17:15:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 17:48:11 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);
-	ft_printf("%d\n", philosophers[0]->times_eaten);
 	system("leaks philo");
 }

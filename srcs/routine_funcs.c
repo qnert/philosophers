@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 17:20:00 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 17:46:43 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,18 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	first_routine(philo);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("%d %d is sleeping\n",
-		get_time(philo->dinnertable->birth), philo->id);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
-	usleep(philo->dinnertable->time_to_sleep);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("%d %d is thinking\n",
-		get_time(philo->dinnertable->birth), philo->id);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	while (check_times_eaten(philo) == 1)
+	{
+		first_routine(philo);
+		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
+		ft_printf("%d %d is sleeping\n",
+			get_time(philo->dinnertable->birth), philo->id);
+		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+		usleep(philo->dinnertable->time_to_sleep);
+		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
+		ft_printf("%d %d is thinking\n",
+			get_time(philo->dinnertable->birth), philo->id);
+		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	}
 	return (NULL);
 }

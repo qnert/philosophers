@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 10:54:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 17:46:33 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct Dinnertable
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
+	pthread_t		waiter;
 	pthread_mutex_t	printf_mutex;
 	pthread_mutex_t	forks[200];
 }					t_dinnertable;
@@ -48,8 +49,9 @@ void			ft_bzero(void *dst, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
 int				ft_atoi(const char *str);
 
-//input check
+//check funcs
 int				check_input(char **argv);
+int				check_times_eaten(t_philo *philo);
 
 //initialization of the structs
 void			philo_init(t_philo	**philosophers, char **argv);
