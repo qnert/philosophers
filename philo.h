@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 10:30:56 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 10:54:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,22 @@ typedef struct Philo
 	t_dinnertable	*dinnertable;
 }					t_philo;
 
+//utils
 void			ft_bzero(void *dst, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
+int				ft_atoi(const char *str);
+
+//input check
 int				check_input(char **argv);
+
+//initialization of the structs
 void			philo_init(t_philo	**philosophers, char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
-int				ft_atoi(const char *str);
+
+//timestamp
 int				get_time(struct timeval birth);
+
+//thread function
 void			*routine(void *arg);
 
 #endif
