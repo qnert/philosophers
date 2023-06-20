@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/19 14:53:57 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/20 10:30:56 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				check_input(char **argv);
 void			philo_init(t_philo	**philosophers, char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
 int				ft_atoi(const char *str);
-struct timeval	get_time(struct timeval birth);
+int				get_time(struct timeval birth);
 void			*routine(void *arg);
 
 #endif
