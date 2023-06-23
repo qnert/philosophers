@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/21 10:31:40 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/23 11:19:24 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	first_routine(t_philo *philo)
 {
 	int	time;
 
-	pthread_mutex_lock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id + 1)
+	pthread_mutex_lock(&philo->dinnertable->forks[philo->id - 1]);
+	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	ft_printf("%d %d has taken a fork\n",
@@ -29,8 +29,8 @@ void	first_routine(t_philo *philo)
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	philo->times_eaten += 1;
 	usleep(philo->dinnertable->time_to_eat);
-	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id]);
-	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id + 1)
+	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id - 1]);
+	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
 }
 
