@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/23 11:19:24 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/25 15:45:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	first_routine(t_philo *philo)
 	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	ft_printf("%d %d has taken a fork\n",
-		get_time(philo->dinnertable->birth), philo->id);
-	ft_printf("%d %d has taken a fork\n",
-		get_time(philo->dinnertable->birth), philo->id);
 	time = get_time(philo->dinnertable->birth);
+	ft_printf("%d %d has taken a fork\n",
+		time, philo->id);
+	ft_printf("%d %d has taken a fork\n",
+		time, philo->id);
 	ft_printf("%d %d is eating\n", time, philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	philo->times_eaten += 1;
