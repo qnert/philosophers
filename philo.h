@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/20 17:46:33 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/26 13:59:40 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void			philo_init(t_philo	**philosophers, char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
 
 //timestamp
-int				get_time(struct timeval birth);
+long			get_time(struct timeval birth);
+void			usleep_ms(int ms);
 
 //thread function
 void			*routine(void *arg);
