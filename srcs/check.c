@@ -6,20 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:12:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/26 14:17:07 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/26 17:14:16 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-int	check_times_eaten(t_philo *philo)
-{
-	if (philo->dinnertable->nb_must_eat == 0)
-		return (1);
-	if (philo->dinnertable->nb_must_eat == philo->times_eaten)
-		return (0);
-	return (1);
-}
 
 int	check_nbs(char *str)
 {
