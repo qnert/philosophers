@@ -69,7 +69,8 @@ void	*check_death_routine(void *arg)
 	{
 		if (i == philos[0]->dinnertable->nb_of_philos)
 			i = 0;
-		if (philos[i]->times_eaten == philos[i]->dinnertable->nb_must_eat)
+		if (philos[i]->times_eaten == philos[i]->dinnertable->nb_must_eat
+			&& philos[i]->times_eaten != 0)
 			break ;
 		if (get_time(philos[i]->dinnertable->birth)
 			- philos[i]->time_since_eaten
