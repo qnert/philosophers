@@ -12,6 +12,21 @@
 
 #include "../philo.h"
 
+void	mutex_create(t_dinnertable *table)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	tmp = table->nb_must_eat;
+	while (i < tmp)
+	{
+		pthread_mutex_init(&table->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&table->printf_mutex, NULL);
+}
+
 void	thread_creation(t_philo **philosophers)
 {
 	int	i;
@@ -19,13 +34,7 @@ void	thread_creation(t_philo **philosophers)
 
 	i = 0;
 	tmp = philosophers[0]->dinnertable->nb_of_philos;
-	while (i < tmp)
-	{
-		pthread_mutex_init(&philosophers[i]->dinnertable->forks[i], NULL);
-		i++;
-	}
-	pthread_mutex_init(&philosophers[0]->dinnertable->printf_mutex, NULL);
-	i = 0;
+	mutex_create(philosophers[0]->dinnertable);
 	while (i < tmp)
 	{
 		pthread_create(&philosophers[i]->thread, NULL,

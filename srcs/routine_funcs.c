@@ -28,6 +28,7 @@ void	first_routine(t_philo *philo)
 	ft_printf("%d %d is eating\n", time, philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	philo->times_eaten += 1;
+	philo->time_since_eaten = time;
 	usleep_ms(philo->dinnertable->time_to_eat);
 	pthread_mutex_unlock(&philo->dinnertable->forks[philo->id - 1]);
 	pthread_mutex_unlock(&philo->dinnertable->forks[(philo->id)
