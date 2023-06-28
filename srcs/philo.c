@@ -12,6 +12,20 @@
 
 #include "../philo.h"
 
+void	kill_all(t_philo **philosophers)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	tmp = philosophers[0]->dinnertable->nb_of_philos;
+	while (i < tmp)
+	{
+		pthread_detach(philosophers[i]->thread);
+		i++;
+	}
+}
+
 void	free_all(t_philo **philosophers)
 {
 	int	i;
@@ -19,6 +33,12 @@ void	free_all(t_philo **philosophers)
 
 	i = 0;
 	tmp = philosophers[0]->dinnertable->nb_of_philos;
+	while (i < tmp)
+	{
+		pthread_mutex_destroy(&philosophers[0]->dinnertable->forks[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&philosophers[0]->dinnertable->printf_mutex);
 	free(philosophers[0]->dinnertable);
 	while (i < tmp)
 	{

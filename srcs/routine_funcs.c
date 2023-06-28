@@ -57,3 +57,32 @@ void	*routine(void *arg)
 	}
 	return (NULL);
 }
+
+void	*check_death_routine(void *arg)
+{
+	int		i;
+	t_philo	**philos;
+
+	i = 0;
+	philos = (t_philo **)arg;
+	while (1)
+	{
+		if (i == philos[0]->dinnertable->nb_of_philos)
+			i = 0;
+		if (philos[i]->times_eaten == philos[i]->dinnertable->nb_must_eat)
+			break ;
+		if (get_time(philos[i]->dinnertable->birth)
+			- philos[i]->time_since_eaten
+			> philos[i]->dinnertable->time_to_die)
+		{
+			pthread_mutex_lock(&philos[i]->dinnertable->printf_mutex);
+			ft_printf("%d %d has died\n",
+				get_time(philos[i]->dinnertable->birth), philos[i]->id);
+			pthread_mutex_unlock(&philos[i]->dinnertable->printf_mutex);
+			kill_all(philos);
+			break ;
+		}
+		i++;
+	}
+	return (NULL);
+}

@@ -48,6 +48,7 @@ typedef struct Philo
 void			ft_bzero(void *dst, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
 int				ft_atoi(const char *str);
+void			kill_all(t_philo **philosophers);
 
 //check funcs
 int				check_input(char **argv);
@@ -63,5 +64,6 @@ void			usleep_ms(int ms);
 
 //thread function
 void			*routine(void *arg);
+void			*check_death_routine(void *arg);
 
 #endif

@@ -18,7 +18,7 @@ void	mutex_create(t_dinnertable *table)
 	int	tmp;
 
 	i = 0;
-	tmp = table->nb_must_eat;
+	tmp = table->nb_of_philos;
 	while (i < tmp)
 	{
 		pthread_mutex_init(&table->forks[i], NULL);
@@ -35,6 +35,8 @@ void	thread_creation(t_philo **philosophers)
 	i = 0;
 	tmp = philosophers[0]->dinnertable->nb_of_philos;
 	mutex_create(philosophers[0]->dinnertable);
+	pthread_create(&philosophers[i]->dinnertable->waiter, NULL,
+		&check_death_routine, philosophers);
 	while (i < tmp)
 	{
 		pthread_create(&philosophers[i]->thread, NULL,
@@ -42,6 +44,7 @@ void	thread_creation(t_philo **philosophers)
 		i++;
 	}
 	i = 0;
+	pthread_join(philosophers[i]->dinnertable->waiter, NULL);
 	while (i < tmp)
 	{
 		pthread_join(philosophers[i]->thread, NULL);
