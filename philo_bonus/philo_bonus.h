@@ -1,45 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 14:40:30 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/05 11:13:00 by skunert          ###   ########.fr       */
+/*   Created: 2023/06/29 10:46:48 by skunert           #+#    #+#             */
+/*   Updated: 2023/06/29 10:47:53 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
-//ein Character
-void	ft_putchar(char c, int *ret_len)
-{
-	(*ret_len)++;
-	write(1, &c, 1);
-}
+# include "./ft_printf/ft_printf.h"
+# include <stdio.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include <fcntl.h>
+# include <sys/time.h>
 
-//ein String
-void	ft_putstr(char *s, int *ret_len)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-	{
-		ft_putstr("(null)", ret_len);
-		return ;
-	}
-	while (s[i] != '\0')
-	{
-		ft_putchar(s[i], ret_len);
-		i++;
-	}
-}
-
-//ein Prozentzeichen
-void	ft_putpercent(int *ret_len)
-{
-	(*ret_len)++;
-	write(1, "%%", 1);
-}

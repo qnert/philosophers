@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/26 17:01:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/29 10:50:47 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	first_routine(t_philo *philo)
 {
-	int	time;
+	unsigned long	time;
 
 	pthread_mutex_lock(&philo->dinnertable->forks[philo->id - 1]);
 	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	time = get_time(philo->dinnertable->birth);
-	ft_printf("%d %d has taken a fork\n",
+	printf("%lu %d has taken a fork\n",
 		time, philo->id);
-	ft_printf("%d %d has taken a fork\n",
+	printf("%lu %d has taken a fork\n",
 		time, philo->id);
-	ft_printf("%d %d is eating\n", time, philo->id);
+	printf("%lu %d is eating\n", time, philo->id);
 	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	philo->times_eaten += 1;
 	philo->time_since_eaten = time;
@@ -46,12 +46,12 @@ void	*routine(void *arg)
 		if (philo->times_eaten == philo->dinnertable->nb_must_eat)
 			break ;
 		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-		ft_printf("%d %d is sleeping\n",
+		printf("%lu %d is sleeping\n",
 			get_time(philo->dinnertable->birth), philo->id);
 		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 		usleep_ms(philo->dinnertable->time_to_sleep);
 		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-		ft_printf("%d %d is thinking\n",
+		printf("%lu %d is thinking\n",
 			get_time(philo->dinnertable->birth), philo->id);
 		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	}
@@ -77,7 +77,7 @@ void	*check_death_routine(void *arg)
 			> philos[i]->dinnertable->time_to_die)
 		{
 			pthread_mutex_lock(&philos[i]->dinnertable->printf_mutex);
-			ft_printf("%d %d has died\n",
+			printf("%lu %d has died\n",
 				get_time(philos[i]->dinnertable->birth), philos[i]->id);
 			pthread_mutex_unlock(&philos[i]->dinnertable->printf_mutex);
 			kill_all(philos);
