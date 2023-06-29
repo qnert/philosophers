@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/29 10:53:35 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/29 11:31:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void	*check_death_routine(void *arg)
 			&& philos[i]->times_eaten != 0)
 			break ;
 		if (get_time(philos[i]->dinnertable->birth)
-			- philos[i]->time_since_eaten
-			> philos[i]->dinnertable->time_to_die)
+			- philos[i]->time_since_eaten > philos[i]->dinnertable->time_to_die)
 		{
 			pthread_mutex_lock(&philos[i]->dinnertable->printf_mutex);
 			printf("%lu %d has died\n",
