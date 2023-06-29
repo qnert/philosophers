@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/26 14:00:36 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/29 21:53:34 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	thread_creation(t_philo **philosophers)
 	{
 		pthread_create(&philosophers[i]->thread, NULL,
 			&routine, (void *)philosophers[i]);
+		usleep(10);
 		i++;
 	}
 	i = 0;
