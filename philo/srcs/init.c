@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 17:30:18 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 18:53:29 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,13 @@ void	philo_init(t_philo	**philosophers, char **argv)
 
 	i = 0;
 	table = dinnertable_init(argv);
+	if (table == NULL)
+		return ;
 	while (i < table->nb_of_philos)
 	{
 		philosophers[i] = ft_calloc(1, sizeof(t_philo));
+		if (philosophers[i] == NULL)
+			return (free_arr(philosophers));
 		philosophers[i]->id = i + 1;
 		philosophers[i]->time_since_eaten = 0;
 		philosophers[i]->times_eaten = 0;
