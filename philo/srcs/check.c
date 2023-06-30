@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 16:12:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/26 17:14:16 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 11:17:01 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int	check_input(char **argv)
 	while (argv[i] != NULL)
 	{
 		if (check_nbs(argv[i]) == 0)
+			return (0);
+		if (ft_strlen(argv[i]) > 11)
+			return (0);
+		if (ft_atol(argv[i]) > INT_MAX
+			|| ft_atol(argv[i]) < INT_MIN)
 			return (0);
 		i++;
 	}

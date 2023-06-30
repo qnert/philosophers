@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/29 10:48:43 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 11:17:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <sys/time.h>
 
 typedef struct Dinnertable
@@ -48,6 +49,8 @@ void			ft_bzero(void *dst, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
 int				ft_atoi(const char *str);
 void			kill_all(t_philo **philosophers);
+long			ft_atol(const char *str);
+size_t			ft_strlen(const char *str);
 
 //check funcs
 int				check_input(char **argv);
