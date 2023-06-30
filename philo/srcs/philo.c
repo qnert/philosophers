@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 16:18:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 16:29:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
 		philo_init(philosophers, argv);
 		free_all(philosophers);
+		free(philosophers);
 	}
 	else if (argc == 6)
 	{
@@ -66,6 +67,7 @@ int	main(int argc, char **argv)
 		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
 		philo_init(philosophers, argv);
 		free_all(philosophers);
+		free(philosophers);
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);
