@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 16:29:20 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 16:39:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,7 @@ int	main(int argc, char **argv)
 {
 	t_philo			**philosophers;
 
-	if (argc == 5)
-	{
-		if (check_input(argv) == 0)
-			return (write(1, "Input Error\n", 12), -1);
-		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
-		philo_init(philosophers, argv);
-		free_all(philosophers);
-		free(philosophers);
-	}
-	else if (argc == 6)
+	if (argc == 5 || argc == 6)
 	{
 		if (check_input(argv) == 0)
 			return (write(1, "Input Error\n", 12), -1);
