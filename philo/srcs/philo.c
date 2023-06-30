@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 16:16:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 16:18:38 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ int	main(int argc, char **argv)
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);
-	system("leaks philo");
 }
