@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/25 14:22:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/06/30 16:16:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	free_all(t_philo **philosophers)
 
 int	main(int argc, char **argv)
 {
-	t_philo			*philosophers[201];
+	t_philo			**philosophers;
 
 	if (argc == 5)
 	{
 		if (check_input(argv) == 0)
 			return (write(1, "Input Error\n", 12), -1);
+		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
 		philo_init(philosophers, argv);
 		free_all(philosophers);
 	}
@@ -62,9 +63,11 @@ int	main(int argc, char **argv)
 	{
 		if (check_input(argv) == 0)
 			return (write(1, "Input Error\n", 12), -1);
+		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
 		philo_init(philosophers, argv);
 		free_all(philosophers);
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);
+	system("leaks philo");
 }
