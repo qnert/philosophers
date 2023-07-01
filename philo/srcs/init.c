@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 18:53:29 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/01 09:45:10 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,18 @@ void	thread_creation(t_philo **philosophers)
 	int	i;
 	int	tmp;
 
-	i = 0;
+	i = -1;
 	tmp = philosophers[0]->dinnertable->nb_of_philos;
 	mutex_create(philosophers[0]->dinnertable);
-	pthread_create(&philosophers[i]->dinnertable->waiter, NULL,
-		&check_death_routine, philosophers);
-	while (i < tmp)
+	if (pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
+			&check_death_routine, philosophers) != 0)
+		return ;
+	while (++i < tmp)
 	{
-		pthread_create(&philosophers[i]->thread, NULL,
-			&routine, (void *)philosophers[i]);
+		if (pthread_create(&philosophers[i]->thread, NULL,
+				&routine, (void *)philosophers[i]) != 0)
+			return ;
 		usleep(50);
-		i++;
 	}
 	i = 0;
 	if (pthread_join(philosophers[i]->dinnertable->waiter, NULL) != 0)
