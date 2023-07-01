@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:22:59 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/01 10:30:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	philo_init(t_philo	**philosophers, char **argv)
 		philosophers[i]->dinnertable = table;
 		i++;
 	}
-	thread_creation(philosophers);
+	if (thread_creation(philosophers) == -1)
+		return (-1);
 	return (1);
 }
 
