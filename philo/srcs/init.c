@@ -6,11 +6,20 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:10:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/01 10:22:59 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	mutex_protection(t_dinnertable *table, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size)
+		pthread_mutex_destroy(&table->forks[i]);
+}
 
 int	mutex_create(t_dinnertable *table)
 {
@@ -19,37 +28,41 @@ int	mutex_create(t_dinnertable *table)
 
 	i = 0;
 	tmp = table->nb_of_philos;
+	if (pthread_mutex_init(&table->printf_mutex, NULL) != 0)
+		return (printf("mutex_init error\n"), -1);
 	while (i < tmp)
 	{
-		pthread_mutex_init(&table->forks[i], NULL);
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+		{
+			mutex_protection(table, i);
+			return (printf("mutex_init error\n"), -1);
+		}
 		i++;
 	}
-	pthread_mutex_init(&table->printf_mutex, NULL);
 	return (1);
 }
 
 int	thread_creation(t_philo **philosophers)
 {
 	int	i;
-	int	tmp;
 
 	i = -1;
-	tmp = philosophers[0]->dinnertable->nb_of_philos;
-	mutex_create(philosophers[0]->dinnertable);
+	if (mutex_create(philosophers[0]->dinnertable) == -1)
+		return (-1);
 	if (pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
 			&check_death_routine, philosophers) != 0)
-		return (-1);
-	while (++i < tmp)
+		return (printf("pthread_create error\n"), -1);
+	while (++i < philosophers[0]->dinnertable->nb_of_philos)
 	{
 		if (pthread_create(&philosophers[i]->thread, NULL,
 				&routine, (void *)philosophers[i]) != 0)
-			return (-1);
+			return (printf("pthread_create error\n"), -1);
 		usleep(50);
 	}
 	i = -1;
 	if (pthread_join(philosophers[0]->dinnertable->waiter, NULL) != 0)
 		return (-1);
-	while (++i < tmp)
+	while (++i < philosophers[0]->dinnertable->nb_of_philos)
 	{
 		if (pthread_join(philosophers[i]->thread, NULL) != 0)
 			return (-1);
