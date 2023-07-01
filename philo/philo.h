@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/06/30 18:53:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/01 10:08:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				check_input(char **argv);
 int				check_times_eaten(t_philo *philo);
 
 //initialization of the structs
-void			philo_init(t_philo	**philosophers, char **argv);
+int				philo_init(t_philo	**philosophers, char **argv);
 t_dinnertable	*dinnertable_init(char **argv);
 
 //timestamp
