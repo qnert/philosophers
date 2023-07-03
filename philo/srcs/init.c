@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/03 19:15:05 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/03 20:09:39 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	mutex_create(t_dinnertable *table)
 
 	i = 0;
 	tmp = table->nb_of_philos;
-	pthread_mutex_init(&table->printf_mutex, NULL);
+	if (pthread_mutex_init(&table->printf_mutex, NULL) != 0)
+		return (-1);
 	while (i < tmp)
 	{
-		pthread_mutex_init(&table->forks[i], NULL);
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+			return (mutex_protection(table, i), -1);
 		i++;
 	}
 	return (1);
@@ -42,7 +44,8 @@ int	thread_creation(t_philo **philosophers)
 	int	i;
 
 	i = -1;
-	mutex_create(philosophers[0]->dinnertable);
+	if (mutex_create(philosophers[0]->dinnertable) == -1)
+		return (-1);
 	pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
 		&check_death_routine, philosophers);
 	while (++i < philosophers[0]->dinnertable->nb_of_philos)
