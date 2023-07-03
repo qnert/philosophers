@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:30:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/03 19:15:05 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,10 @@ int	mutex_create(t_dinnertable *table)
 
 	i = 0;
 	tmp = table->nb_of_philos;
-	if (pthread_mutex_init(&table->printf_mutex, NULL) != 0)
-		return (printf("mutex_init error\n"), -1);
+	pthread_mutex_init(&table->printf_mutex, NULL);
 	while (i < tmp)
 	{
-		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-		{
-			mutex_protection(table, i);
-			return (printf("mutex_init error\n"), -1);
-		}
+		pthread_mutex_init(&table->forks[i], NULL);
 		i++;
 	}
 	return (1);
@@ -47,26 +42,19 @@ int	thread_creation(t_philo **philosophers)
 	int	i;
 
 	i = -1;
-	if (mutex_create(philosophers[0]->dinnertable) == -1)
-		return (-1);
-	if (pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
-			&check_death_routine, philosophers) != 0)
-		return (printf("pthread_create error\n"), -1);
+	mutex_create(philosophers[0]->dinnertable);
+	pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
+		&check_death_routine, philosophers);
 	while (++i < philosophers[0]->dinnertable->nb_of_philos)
 	{
-		if (pthread_create(&philosophers[i]->thread, NULL,
-				&routine, (void *)philosophers[i]) != 0)
-			return (printf("pthread_create error\n"), -1);
+		pthread_create(&philosophers[i]->thread, NULL,
+			&routine, (void *)philosophers[i]);
 		usleep(50);
 	}
 	i = -1;
-	if (pthread_join(philosophers[0]->dinnertable->waiter, NULL) != 0)
-		return (-1);
+	pthread_join(philosophers[0]->dinnertable->waiter, NULL);
 	while (++i < philosophers[0]->dinnertable->nb_of_philos)
-	{
-		if (pthread_join(philosophers[i]->thread, NULL) != 0)
-			return (-1);
-	}
+		pthread_join(philosophers[i]->thread, NULL);
 	return (1);
 }
 
@@ -81,7 +69,7 @@ int	philo_init(t_philo	**philosophers, char **argv)
 		return (-1);
 	while (i < table->nb_of_philos)
 	{
-		philosophers[i] = ft_calloc(1, sizeof(t_philo));
+		philosophers[i] = malloc(1 * sizeof(t_philo));
 		if (philosophers[i] == NULL)
 			return (free_arr(philosophers), -1);
 		philosophers[i]->id = i + 1;
@@ -90,8 +78,7 @@ int	philo_init(t_philo	**philosophers, char **argv)
 		philosophers[i]->dinnertable = table;
 		i++;
 	}
-	if (thread_creation(philosophers) == -1)
-		return (-1);
+	thread_creation(philosophers);
 	return (1);
 }
 

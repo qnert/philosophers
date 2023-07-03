@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:22:11 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/03 19:10:57 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	first_routine(t_philo *philo)
 
 	pthread_mutex_lock(&philo->dinnertable->forks[philo->id - 1]);
 	time = get_time(philo->dinnertable->birth);
+	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
 	printf("%d %d has taken a fork\n",
 		time, philo->id);
+	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
 	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
 	pthread_mutex_lock(&philo->dinnertable->printf_mutex);

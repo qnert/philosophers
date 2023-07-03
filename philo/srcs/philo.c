@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:30:50 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/03 19:15:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	free_all(t_philo **philosophers)
 	}
 	pthread_mutex_destroy(&philosophers[0]->dinnertable->printf_mutex);
 	free(philosophers[0]->dinnertable);
+	i = 0;
 	while (i < tmp)
 	{
 		free(philosophers[i]);
