@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/03 20:09:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:52:58 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	mutex_create(t_dinnertable *table)
 	while (i < tmp)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-			return (mutex_protection(table, i), -1);
+			return (mutex_protection(table, i), 1);
 		i++;
 	}
 	return (1);
@@ -46,12 +46,14 @@ int	thread_creation(t_philo **philosophers)
 	i = -1;
 	if (mutex_create(philosophers[0]->dinnertable) == -1)
 		return (-1);
-	pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
-		&check_death_routine, philosophers);
+	if (pthread_create(&philosophers[0]->dinnertable->waiter, NULL,
+			&check_death_routine, philosophers) != 0)
+		return (-1);
 	while (++i < philosophers[0]->dinnertable->nb_of_philos)
 	{
-		pthread_create(&philosophers[i]->thread, NULL,
-			&routine, (void *)philosophers[i]);
+		if (pthread_create(&philosophers[i]->thread, NULL,
+				&routine, (void *)philosophers[i]) != 0)
+			return (-1);
 		usleep(50);
 	}
 	i = -1;
@@ -74,7 +76,7 @@ int	philo_init(t_philo	**philosophers, char **argv)
 	{
 		philosophers[i] = malloc(1 * sizeof(t_philo));
 		if (philosophers[i] == NULL)
-			return (free_arr(philosophers), -1);
+			return (free_arr(philosophers, i), -1);
 		philosophers[i]->id = i + 1;
 		philosophers[i]->time_since_eaten = 0;
 		philosophers[i]->times_eaten = 0;

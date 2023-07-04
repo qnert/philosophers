@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/03 19:15:27 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:56:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	kill_all(t_philo **philosophers)
 	}
 }
 
-void	free_arr(t_philo **philos)
+void	free_arr(t_philo **philos, int size)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (philos[i] != NULL)
+	while (i < size)
 	{
 		free(philos[i]);
 		i++;
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 		if (philosophers == NULL)
 			return (-1);
 		if (philo_init(philosophers, argv) == -1)
-			return (-1);
+			return (free(philosophers), -1);
 		free_all(philosophers);
 		free(philosophers);
 	}

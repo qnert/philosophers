@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/01 10:08:27 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 10:53:07 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			ft_bzero(void *dst, size_t n);
 void			*ft_calloc(size_t nitems, size_t size);
 int				ft_atoi(const char *str);
 void			kill_all(t_philo **philosophers);
-void			free_arr(t_philo **philos);
+void			free_arr(t_philo **philos, int size);
 long			ft_atol(const char *str);
 size_t			ft_strlen(const char *str);
 
