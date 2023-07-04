@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/04 11:03:27 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:14:38 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	main(int argc, char **argv)
 		philosophers = malloc(sizeof(t_philo *) * ft_atoi(argv[1]));
 		if (philosophers == NULL)
 			return (-1);
-		if (philo_init(philosophers, argv) == -1)
-			return (free_arr(philosophers,
-					ft_atoi(argv[1])), free(philosophers), -1);
+		if (philo_init(philosophers, argv) == -2)
+			return (free_arr(philosophers, ft_atoi(argv[1])),
+				free(philosophers), -1);
 		free_all(philosophers);
 		free(philosophers);
 	}
