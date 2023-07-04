@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/04 10:56:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:03:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(int argc, char **argv)
 		if (philosophers == NULL)
 			return (-1);
 		if (philo_init(philosophers, argv) == -1)
-			return (free(philosophers), -1);
+			return (free_arr(philosophers,
+					ft_atoi(argv[1])), free(philosophers), -1);
 		free_all(philosophers);
 		free(philosophers);
 	}

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/04 10:52:58 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/04 11:00:41 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	thread_creation(t_philo **philosophers)
 	{
 		if (pthread_create(&philosophers[i]->thread, NULL,
 				&routine, (void *)philosophers[i]) != 0)
-			return (-1);
+			return (mutex_protection(philosophers[0]->dinnertable,
+					philosophers[0]->dinnertable->nb_of_philos), -1);
 		usleep(50);
 	}
 	i = -1;
