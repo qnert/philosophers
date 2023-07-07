@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/04 16:14:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:46:26 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	free_all(t_philo **philosophers)
 		i++;
 	}
 	pthread_mutex_destroy(&philosophers[0]->dinnertable->printf_mutex);
+	pthread_mutex_destroy(&philosophers[0]->dinnertable->time_mutex);
+	pthread_mutex_destroy(&philosophers[0]->dinnertable->death_mutex);
 	free(philosophers[0]->dinnertable);
 	i = 0;
 	while (i < tmp)
@@ -59,6 +61,7 @@ void	free_all(t_philo **philosophers)
 		free(philosophers[i]);
 		i++;
 	}
+	free(philosophers);
 }
 
 int	main(int argc, char **argv)
@@ -76,7 +79,6 @@ int	main(int argc, char **argv)
 			return (free_arr(philosophers, ft_atoi(argv[1])),
 				free(philosophers), -1);
 		free_all(philosophers);
-		free(philosophers);
 	}
 	else
 		write(1, "Wrong amount of arguments!\n", 27);

@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/04 16:12:23 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/07 16:51:52 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int	mutex_create(t_dinnertable *table)
 	tmp = table->nb_of_philos;
 	if (pthread_mutex_init(&table->printf_mutex, NULL) != 0)
 		return (-1);
+	if (pthread_mutex_init(&table->time_mutex, NULL) != 0)
+		return (pthread_mutex_destroy(&table->printf_mutex), -1);
+	if (pthread_mutex_init(&table->death_mutex, NULL) != 0)
+		return (pthread_mutex_destroy(&table->printf_mutex),
+			pthread_mutex_destroy(&table->time_mutex), -1);
 	while (i < tmp)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
@@ -93,7 +98,7 @@ t_dinnertable	*dinnertable_init(char **argv)
 {
 	t_dinnertable	*table;
 
-	table = ft_calloc(1, sizeof(t_dinnertable));
+	table = malloc(1 * sizeof(t_dinnertable));
 	if (table == NULL)
 		return (NULL);
 	gettimeofday(&table->birth, NULL);
