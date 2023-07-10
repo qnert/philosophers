@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/07 16:35:52 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/10 10:53:38 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct Dinnertable
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_must_eat;
+	int				death_occ;
 	pthread_t		waiter;
 	pthread_mutex_t	time_mutex;
 	pthread_mutex_t	death_mutex;

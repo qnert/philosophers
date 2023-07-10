@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/07 16:51:52 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/10 11:13:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ t_dinnertable	*dinnertable_init(char **argv)
 		table->nb_must_eat = ft_atoi(argv[5]);
 	else
 		table->nb_must_eat = 0;
+	table->death_occ = 0;
 	return (table);
 }
