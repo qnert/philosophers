@@ -6,26 +6,27 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/07 16:49:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/10 10:50:50 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
+void	printf_safe(char *msg, t_philo *philo, long time)
+{
+	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
+	printf("%ld %d %s\n", time, philo->id, msg);
+	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+}
+
 void	first_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->dinnertable->forks[philo->id - 1]);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	printf("%ld %d has taken a fork\n",
-		get_time(philo->dinnertable->birth), philo->id);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	printf_safe("has taken a fork", philo, get_time(philo->dinnertable->birth));
 	pthread_mutex_lock(&philo->dinnertable->forks[(philo->id)
 		% philo->dinnertable->nb_of_philos]);
-	pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-	printf("%ld %d has taken a fork\n",
-		get_time(philo->dinnertable->birth), philo->id);
-	printf("%ld %d is eating\n", get_time(philo->dinnertable->birth), philo->id);
-	pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+	printf_safe("has taken a fork", philo, get_time(philo->dinnertable->birth));
+	printf_safe("is eating", philo, get_time(philo->dinnertable->birth));
 	philo->times_eaten += 1;
 	philo->time_since_eaten = get_time(philo->dinnertable->birth);
 	usleep_ms(philo->dinnertable->time_to_eat);
@@ -44,15 +45,9 @@ void	*routine(void *arg)
 		first_routine(philo);
 		if (philo->times_eaten == philo->dinnertable->nb_must_eat)
 			break ;
-		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-		printf("%lu %d is sleeping\n",
-			get_time(philo->dinnertable->birth), philo->id);
-		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+		printf_safe("is sleeping", philo, get_time(philo->dinnertable->birth));
 		usleep_ms(philo->dinnertable->time_to_sleep);
-		pthread_mutex_lock(&philo->dinnertable->printf_mutex);
-		printf("%lu %d is thinking\n",
-			get_time(philo->dinnertable->birth), philo->id);
-		pthread_mutex_unlock(&philo->dinnertable->printf_mutex);
+		printf_safe("is thinking", philo, get_time(philo->dinnertable->birth));
 	}
 	return (NULL);
 }
@@ -74,10 +69,7 @@ void	*check_death_routine(void *arg)
 		if (get_time(philos[i]->dinnertable->birth)
 			- philos[i]->time_since_eaten > philos[i]->dinnertable->time_to_die)
 		{
-			pthread_mutex_lock(&philos[i]->dinnertable->printf_mutex);
-			printf("%lu %d died\n",
-				get_time(philos[i]->dinnertable->birth), philos[i]->id);
-			pthread_mutex_unlock(&philos[i]->dinnertable->printf_mutex);
+			printf_mutex("died", philos[i], get_time(philos[i]->dinnertable->birth));
 			kill_all(philos);
 			break ;
 		}
