@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 10:54:47 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/11 11:22:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	usleep(500);
 	while (1)
 	{
 		if (first_routine(philo) == -1)
