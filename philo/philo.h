@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:40:01 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 11:37:45 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:13:29 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void			*routine(void *arg);
 void			*check_death_routine(void *arg);
 
 //actions
+int				check_death(t_philo *philo);
+void			handle_death(t_philo *philo);
 void			safe_release(t_philo *philo);
 int				safe_fork_take(t_philo *philo);
 void			printf_safe(char *msg, t_philo *philo, long time);

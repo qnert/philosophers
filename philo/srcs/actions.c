@@ -6,15 +6,37 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:34:19 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 11:42:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:20:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
+void	handle_death(t_philo *philo)
+{
+	printf_safe("died", philo,
+		get_time(philo->dinnertable->birth));
+	pthread_mutex_lock(&philo->dinnertable->death_mutex);
+		philo->dinnertable->death_occ = 1;
+	pthread_mutex_unlock(&philo->dinnertable->death_mutex);
+}
+
+int	check_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->dinnertable->time_mutex);
+	if (get_time(philo->dinnertable->birth)
+		- philo->time_since_eaten > philo->dinnertable->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->dinnertable->time_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->dinnertable->time_mutex);
+	return (0);
+}
+
 void	safe_release(t_philo *philo)
 {
-	if (philo->id % 2 == 1)
+	if (philo->id % 2 != 0)
 	{
 		pthread_mutex_unlock(&philo->dinnertable->forks[philo->id - 1]);
 		pthread_mutex_unlock(&philo->dinnertable->forks[philo->id
@@ -30,7 +52,7 @@ void	safe_release(t_philo *philo)
 
 int	safe_fork_take(t_philo *philo)
 {
-	if (philo->id % 2 == 1)
+	if (philo->id % 2 != 0)
 	{
 		pthread_mutex_lock(&philo->dinnertable->forks[philo->id - 1]);
 		if (philo->dinnertable->nb_of_philos == 1)
