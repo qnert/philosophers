@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 13:46:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/11 15:15:45 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*check_death_routine(void *arg)
 			&& philos[i]->times_eaten != 0)
 			break ;
 		if (get_time(philos[i]->dinnertable->birth)
-			- philos[i]->time_since_eaten > philos[i]->dinnertable->time_to_die)
+			- philos[i]->time_since_eaten > philos[i]->dinnertable->time_to_die + 1)
 		{
 			printf_safe("died", philos[i],
 				get_time(philos[i]->dinnertable->birth));
