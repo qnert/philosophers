@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:34:19 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 17:25:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/12 12:28:51 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_death(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->dinnertable->time_mutex);
 	if (get_time(philo->dinnertable->birth)
-		- philo->time_since_eaten > (philo->dinnertable->time_to_die + 1))
+		- philo->time_since_eaten > philo->dinnertable->time_to_die)
 	{
 		pthread_mutex_unlock(&philo->dinnertable->time_mutex);
 		return (1);
