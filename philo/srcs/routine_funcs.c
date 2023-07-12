@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:51:39 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/12 12:29:57 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:33:03 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	*routine(void *arg)
 		usleep_ms(philo->dinnertable->time_to_sleep);
 		printf_safe("is thinking", philo, get_time(philo->dinnertable->birth));
 		if (philo->dinnertable->nb_of_philos % 2 != 0)
-			usleep_ms(philo->dinnertable->time_to_eat * 2 - philo->dinnertable->time_to_sleep);
+			usleep_ms(philo->dinnertable->time_to_eat * 2
+				- philo->dinnertable->time_to_sleep);
 	}
 	return (NULL);
 }
