@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 11:05:18 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/11 13:45:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/12 16:51:15 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	mutex_create(t_dinnertable *table)
 	while (i < tmp)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-			return (mutex_protection(table, i), 1);
+			return (mutex_protection(table, i), -1);
 		i++;
 	}
 	return (1);
@@ -89,7 +89,8 @@ int	philo_init(t_philo	**philosophers, char **argv)
 		philosophers[i]->dinnertable = table;
 		i++;
 	}
-	thread_creation(philosophers);
+	if (thread_creation(philosophers) == -2)
+		return (-2);
 	return (1);
 }
 
