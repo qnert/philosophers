@@ -6,25 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:39:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/07/07 16:46:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/07/12 13:33:36 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-void	kill_all(t_philo **philosophers)
-{
-	int	i;
-	int	tmp;
-
-	i = 0;
-	tmp = philosophers[0]->dinnertable->nb_of_philos;
-	while (i < tmp)
-	{
-		pthread_detach(philosophers[i]->thread);
-		i++;
-	}
-}
 
 void	free_arr(t_philo **philos, int size)
 {
